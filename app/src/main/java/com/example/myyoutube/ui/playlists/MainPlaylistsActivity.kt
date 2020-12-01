@@ -1,18 +1,19 @@
-package com.example.myyoutube.ui
+package com.example.myyoutube.ui.playlists
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.myyoutube.ui.adapter.PlaylistsAdapter
+import com.example.myyoutube.ui.playlists.adapter.PlaylistsAdapter
 import com.example.myyoutube.R
 import com.example.myyoutube.models.Playlist
 import com.example.myyoutube.models.PlaylistItems
+import com.example.myyoutube.network.Status
+import com.example.myyoutube.showToastShort
+import com.example.myyoutube.ui.detailPlaylist.DetailPlaylistActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
-    private val list = mutableListOf<Playlist>()
+class MainPlaylistsActivity : AppCompatActivity() {
     private lateinit var viewModel: PlaylistViewModel
 
 
@@ -24,13 +25,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecycler(list: MutableList<PlaylistItems>) {
-        val adapter = PlaylistsAdapter(list)
+        val adapter = PlaylistsAdapter(this::onItemClick)
+        adapter.addItems(list)
         playlists_rv.adapter = adapter
     }
+
+    private fun onItemClick(item: PlaylistItems) {
+     DetailPlaylistActivity.instanceActivity(this, item.id.toString(),item.snippet?.title.toString())
+    }
+
     private fun fetchPlaylists() {
         viewModel.fetchPlaylists().observe(this, Observer {
-            initRecycler(it?.items!!)
-            Log.e("RESULT_FETCH_PLAYLISTS", it.toString())
+            when (it.status) {
+                Status.SUCCESS -> { it.data?.items?.let { it1 -> initRecycler(it1) } }
+                Status.ERROR -> {showToastShort(it?.message.toString()) }
+            }
         })
     }
+
+
 }

@@ -1,6 +1,8 @@
 package com.example.myyoutube
 
+import android.content.Context
 import android.widget.ImageView
+import android.widget.Toast
 import com.bumptech.glide.Glide
 
 fun ImageView.loadImage(url: String, placeholder: Int = 0){
@@ -8,4 +10,7 @@ fun ImageView.loadImage(url: String, placeholder: Int = 0){
         .load(url)
         .placeholder(placeholder)
         .into(this)
+}
+fun Context.showToastShort(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
