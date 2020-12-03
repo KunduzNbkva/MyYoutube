@@ -3,24 +3,21 @@ package com.example.myyoutube.ui.playlists
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.myyoutube.ui.playlists.adapter.PlaylistsAdapter
 import com.example.myyoutube.R
-import com.example.myyoutube.models.Playlist
-import com.example.myyoutube.models.PlaylistItems
-import com.example.myyoutube.network.Status
+import com.example.myyoutube.data.models.PlaylistItems
+import com.example.myyoutube.data.network.Status
 import com.example.myyoutube.showToastShort
 import com.example.myyoutube.ui.detailPlaylist.DetailPlaylistActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
 
 class MainPlaylistsActivity : AppCompatActivity() {
-    private lateinit var viewModel: PlaylistViewModel
-
+    private val viewModel by inject<PlaylistViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewModel = ViewModelProvider(this).get(PlaylistViewModel::class.java)
         fetchPlaylists()
     }
 
@@ -31,17 +28,19 @@ class MainPlaylistsActivity : AppCompatActivity() {
     }
 
     private fun onItemClick(item: PlaylistItems) {
-     DetailPlaylistActivity.instanceActivity(this, item.id.toString(),item.snippet?.title.toString())
+        item.apiId?.let { id ->
+            DetailPlaylistActivity.instanceActivity(
+                this,
+                id,
+                item.snippet?.title.toString()
+            )
+        }
+
     }
 
     private fun fetchPlaylists() {
-        viewModel.fetchPlaylists().observe(this, Observer {
-            when (it.status) {
-                Status.SUCCESS -> { it.data?.items?.let { it1 -> initRecycler(it1) } }
-                Status.ERROR -> {showToastShort(it?.message.toString()) }
-            }
-        })
+        viewModel.playlists.observeForever {
+            initRecycler(it)
+        }
     }
-
-
 }

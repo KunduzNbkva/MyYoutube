@@ -1,7 +1,8 @@
-package com.example.myyoutube.network
+package com.example.myyoutube.data.network
 
-import com.example.myyoutube.models.Playlist
-import retrofit2.Call
+import com.example.myyoutube.data.models.DetailPlayList
+import com.example.myyoutube.data.models.Playlist
+import com.example.myyoutube.data.models.PlaylistItems
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -21,5 +22,5 @@ interface  YoutubeApi{
         @Query("key") key: String,
         @Query("playlistId") playlistId: String?,
         @Query("pageToken") pageToken: String?
-    ): Playlist
+    ): DetailPlayList
 }

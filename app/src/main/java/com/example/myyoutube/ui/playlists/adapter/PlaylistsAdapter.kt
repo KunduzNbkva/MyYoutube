@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myyoutube.R
 import com.example.myyoutube.loadImage
-import com.example.myyoutube.models.PlaylistItems
+import com.example.myyoutube.data.models.PlaylistItems
 import kotlinx.android.synthetic.main.list_playlists.view.*
 
 

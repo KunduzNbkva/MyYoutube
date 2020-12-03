@@ -1,4 +1,4 @@
-package com.example.myyoutube.network
+package com.example.myyoutube.data.network
 
 import android.util.Log
 

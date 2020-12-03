@@ -5,14 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myyoutube.R
+import com.example.myyoutube.data.models.DetailPlayList
+import com.example.myyoutube.data.models.DetailVideo
 import com.example.myyoutube.loadImage
-import com.example.myyoutube.models.PlaylistItems
-import kotlinx.android.synthetic.main.activity_info.view.*
 import kotlinx.android.synthetic.main.list_playlists.view.*
 
-class DetailAdapter(private var onItemClick: (PlaylistItems) -> Unit) :
+class DetailAdapter(private var onItemClick: (DetailVideo) -> Unit) :
     RecyclerView.Adapter<DetailAdapter.ViewHolder>() {
-    private var list = mutableListOf<PlaylistItems>()
+    private var list = mutableListOf<DetailVideo>()
 
     private lateinit var holder: ViewHolder
 
@@ -35,19 +35,19 @@ class DetailAdapter(private var onItemClick: (PlaylistItems) -> Unit) :
         }
     }
 
-    fun addItems(items: MutableList<PlaylistItems>) {
+    fun addItems(items: MutableList<DetailVideo>) {
         list.addAll(items)
         notifyDataSetChanged()
     }
 
-    fun addItem(item: PlaylistItems) {
+    fun addItem(item: DetailVideo) {
         list.add(item)
         notifyItemInserted(list.lastIndex)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun onBind(item: PlaylistItems) {
+        fun onBind(item: DetailVideo) {
             itemView.rootView.playlist_img.loadImage(item.snippet?.thumbnails?.medium?.url.toString())
             itemView.rootView.title_txt.text = item.snippet?.title
             itemView.rootView.quantity_txt.visibility=View.INVISIBLE

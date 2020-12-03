@@ -1,6 +1,13 @@
-package com.example.myyoutube.models
+package com.example.myyoutube.data.models
 
+import androidx.annotation.NonNull
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "detailPlaylist")
 data class DetailPlayList(
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
     var id: Long? = null,
 
     var kind: String? = null,
