@@ -3,6 +3,7 @@ package com.example.myyoutube.data.models
 import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "detailPlaylist")
 data class DetailPlayList(
@@ -10,23 +11,16 @@ data class DetailPlayList(
     @NonNull
     var id: Long? = null,
 
-    var kind: String? = null,
-
-    var etag: String? = null,
-
     var nextPageToken: String? = null,
 
-    var prevPageToken:String? = null,
-
     var items: MutableList<DetailVideo>? = null
-)
+):Serializable
+
 data class DetailVideo(
-
-    var kind: String? = null,
-
-    var etag: String? = null,
-
     var id: String? = null,
-
     var snippet: Snippet? = null
-)
+) : Serializable
+
+data class ResourceId(
+    var videoId: String? = null
+) : Serializable

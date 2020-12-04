@@ -20,6 +20,7 @@ import java.util.*
 import java.util.prefs.Preferences
 
 class MainPlaylistsActivity : AppCompatActivity() {
+
     private val viewModel by inject<PlaylistViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,7 +67,7 @@ class MainPlaylistsActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun Activity.changeLanguage() {
+    private fun Activity.changeLanguage() {
         val listItems = arrayOf("Русский", "English", "Кыргызча")
         val mBuilder = AlertDialog.Builder(this)
         mBuilder.setTitle(getString(R.string.choose_lang))
@@ -100,12 +101,13 @@ class MainPlaylistsActivity : AppCompatActivity() {
         )
         SharedPref.getPrefInstance(context)?.saveLang(lang)
     }
+
     override fun onResume() {
         loadLocaleLang(this)
         super.onResume()
     }
 
-    fun loadLocaleLang(context: Context) {
+    private fun loadLocaleLang(context: Context) {
         var language: String? = SharedPref.getPrefInstance(context)?.lanquage
         if (language != null) {
             setLocale(language, context)

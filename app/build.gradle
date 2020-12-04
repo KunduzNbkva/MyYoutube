@@ -76,7 +76,7 @@ dependencies {
     testImplementation "androidx.room:room-testing:$room_version"
     //exo player
     implementation 'com.google.android.exoplayer:exoplayer:2.12.1'
-    //fetch urls array
-    implementation 'com.github.haarigerharald:android-youtubeextractor:2.1.0'
+    //youtube player
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
 
 }

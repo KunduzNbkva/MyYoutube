@@ -3,16 +3,13 @@ package com.example.myyoutube.ui.detailPlaylist
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myyoutube.R
-import com.example.myyoutube.data.models.DetailPlayList
 import com.example.myyoutube.data.models.DetailVideo
 import com.example.myyoutube.loadImage
-import com.example.myyoutube.showToastShort
 import com.example.myyoutube.ui.detailPlaylist.adapter.DetailAdapter
 import com.example.myyoutube.ui.detailVideo.DetailVideoActivity
 import kotlinx.android.synthetic.main.activity_info.*
@@ -55,7 +52,6 @@ class DetailPlaylistActivity() : AppCompatActivity() {
 
     private fun onItemClick(item: DetailVideo) {
        DetailVideoActivity.instanceActivity(this, item)
-        showToastShort(item.toString())
     }
 
     companion object {
